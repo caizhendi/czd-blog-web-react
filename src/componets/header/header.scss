@@ -1,0 +1,29 @@
+@import '../../scss/common/variables.scss';
+
+.header{
+    background-color: black;
+    color: white;
+    height: 80px;
+
+    &-content{
+        width: $content-width;
+        margin: 0 auto;
+        height: 100%;
+        padding: 0 20px;
+    }
+
+    .nav{
+        display: flex;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        list-style: none;
+        
+        &-item{
+            margin-right: 50px;
+            color: white;
+            text-decoration: none;
+        }
+    }
+}
