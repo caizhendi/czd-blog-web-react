@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import articleReducer from './article/article.reducer';
-import { StateType } from 'typesafe-actions';
+import { combineReducers } from "redux";
+import articleReducer from "./article/article.reducer";
+import { StateType } from "typesafe-actions";
 
 const rootReducer = combineReducers({
     article: articleReducer

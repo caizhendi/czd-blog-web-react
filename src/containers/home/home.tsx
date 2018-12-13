@@ -4,88 +4,69 @@ import Header from 'src/componets/header/header';
 import Footer from 'src/componets/footer/footer';
 import { ArticleEntity } from 'src/models/article.entity';
 import { HomeArticleItem } from './article_item/article_item';
-import { ArticleApi } from 'src/apis/article.api';
-import stroe, { RootState } from "src/store";
+import { RootState } from 'src/store';
 import { articleActions, articleSelector } from 'src/store/article';
 import { connect } from 'react-redux';
 
-import store from 'src/store';
-class Home extends React.Component<HomeProps, HomeState> {
-    constructor(props:HomeProps) {
-        super(props);
-        this.state = {
-            recentArticles:[]
-        };
-    }
-    public render() {
-        return (
-            <div className="home">
-                <Header />
-                <div className="home-content">
-                    <div className="home-articles">
-                        {
-                            this.state.recentArticles.map((article, index) => 
-                                <HomeArticleItem 
-                                    key = {index}
-                                    title = {article.title}
-                                    summary = {article.summary}
-                                    id = {article.id}
-                                />
-                            )
-                        }
-                    </div>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
+class Home extends React.Component<HomeProps> {
 
-    async componentDidMount() {
-        this.showRecentArticle();
-        store.dispatch(articleActions.loadList());
+  constructor(props: HomeProps) {
+    super(props);
+    this.state = {
+      recentArticles: []
+    };
+  }
 
-        // // TODO
-        console.log(stroe.getState());
+  public render() {
+    return (
+      <div className="home">
 
-        stroe.subscribe(()=>{
-            console.log("hhhh");
-        });
-        setTimeout(()=>{
-            stroe.dispatch(articleActions.loadList());
-        },2000);
-    }
+        <Header />
 
-    showRecentArticle() {
-        // TODO 从store中取数据
-        ArticleApi.getList().then(articles => {
-            this.setState({
-                recentArticles:articles
-            });
-            console.log(this.state.recentArticles);
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-} 
+        <div className="home-content">
+          <div className="home-articles">
+            {
+              this.props.recentArticles.map((article, index) =>
+                <HomeArticleItem
+                  key={index}
+                  title={article.title}
+                  summary={article.summary}
+                  id={article.id}
+                />
+              )
+            }
+          </div>
+        </div>
 
+        <Footer />
 
-interface HomeState {
-    recentArticles:  ArticleEntity[];
+      </div>
+
+    );
+  }
+
+  async componentDidMount() {
+    this.props.getRecentArticles();
+  }
+
 }
 
 interface HomeProps {
-    recentArticles: ArticleEntity[];
-    getRecentArticles():any;
+  recentArticles: ArticleEntity[];
+  getRecentArticles(): any;
 }
 
+/** 绑定 state 到 props */
 const mapStateToProps = (state: RootState) => {
-    return {
-        recentArticles: articleSelector.getArticleList(state.article)
-    };
+  return {
+    recentArticles: articleSelector.getArticleList(state.article)
+  };
 };
 
+/** 绑定 dispatch 到props */
 const mapDispatchToProps = {
-    getRecentArticles: ()=> articleActions.loadList()
+  getRecentArticles: () => articleActions.fetchList.request({})
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

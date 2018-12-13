@@ -3,14 +3,18 @@ import { PageQuery } from "src/const/types";
 import { ArticleEntity } from "src/models/article.entity";
 import { Http } from "src/common/http";
 
-const ApiUrl =`${ApiDomain}/article`;
+const ApiUrl = `${ApiDomain}/article`;
 
 /**
  * 文章api
  */
 export class ArticleApi {
 
-    static getList(query?: PageQuery): Promise<ArticleEntity[]> {
+    /**
+     * 获取文章列表 
+     * @param query 查询参数
+     */
+    static getList(query?: ArticlePageQuery): Promise<ArticleEntity[]> {
         return Http.get(ApiUrl, query);
     }
 
@@ -29,4 +33,9 @@ export class ArticleApi {
     static remove(id: string) {
         return Http.delete(`${ApiUrl}/${id}`);
     }
+}
+
+export interface ArticlePageQuery extends PageQuery {
+    author?: string;
+    date?: string;
 }

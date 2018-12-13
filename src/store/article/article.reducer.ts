@@ -1,7 +1,7 @@
 import { ArticleEntity } from "src/models/article.entity";
 import { ActionType, getType } from "typesafe-actions";
-import actions from "./article.actions";
-import { combineReducers } from 'redux';
+import * as actions from "./article.actions";
+import { combineReducers } from "redux";
 
 export type ArticleState = {
     readonly page: number;
@@ -11,11 +11,14 @@ export type ArticleState = {
 
 export type ArticleAction = ActionType<typeof actions>;
 
+
+
 const articles = (state: ArticleEntity[] = [], action: ArticleAction) => {
     switch (action.type) {
-        case getType(actions.loadList):
+        case getType(actions.fetchList.request):
             return [];
-
+        case getType(actions.fetchList.success):
+            return action.payload;
         default:
             return state;
     }
@@ -23,16 +26,17 @@ const articles = (state: ArticleEntity[] = [], action: ArticleAction) => {
 
 const page = (state: number = 1, action: ArticleAction) => {
     switch (action.type) {
-        case getType(actions.loadList):
+        case getType(actions.fetchList.request):
             return 2;
-        default :
+
+        default:
             return state;
     }
 };
 
 const pageSize = (state: number = 10, action: ArticleAction) => {
     switch (action.type) {
-        case getType(actions.loadList):
+        case getType(actions.fetchList.success):
             return 1;
 
         default:
