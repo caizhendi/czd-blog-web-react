@@ -28,10 +28,7 @@
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-<<<<<<< HEAD
     "reselect": "^4.0.0",
-=======
->>>>>>> 80a4140d6800d4d184fb99b9e846906a7bbfeda6
     "resolve": "1.6.0",
     "simplemde": "^1.11.2",
     "source-map-loader": "^0.2.1",
@@ -63,11 +60,8 @@
     "@types/react-dom": "^16.0.10",
     "@types/react-redux": "^6.0.10",
     "@types/react-router-dom": "^4.3.1",
-<<<<<<< HEAD
     "@types/reselect": "^2.2.0",
     "@types/simplemde": "^1.11.7",
-=======
->>>>>>> 80a4140d6800d4d184fb99b9e846906a7bbfeda6
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
     "typescript": "^3.1.6"
